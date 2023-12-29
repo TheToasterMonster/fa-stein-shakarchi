@@ -1,0 +1,419 @@
+\documentclass[letterpaper, 12pt]{article}
+% \usepackage[margin=0.5in]{geometry}
+\usepackage{fullpage}
+\usepackage{microtype}
+% \usepackage{kpfonts}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{hyperref}
+\usepackage{parskip}
+\usepackage[many]{tcolorbox}
+\usepackage{cancel}
+\usepackage[shortlabels]{enumitem}
+
+\setlist[enumerate]{(a)}
+\tcbset{sharp corners, breakable, enhanced, parbox=false}
+
+\setlength{\hoffset}{-1.54cm}
+\setlength{\voffset}{-1.54cm}
+\setlength{\topmargin}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\headheight}{0pt}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\textwidth}{195mm}
+\setlength{\textheight}{250mm}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\Mod}[1]{\ {\mathrm{mod}\ #1}}
+\newcommand{\Pmod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\LHS}{\text{LHS}}
+\newcommand{\RHS}{\text{RHS}}
+\newcommand{\cm}{\checkmark}
+
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\nullspace}{null}
+
+\title{Solutions to \textit{Fourier Analysis} by Stein and Shakarchi}
+\author{Frank Qiang}
+\date{Fall 2023}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Chapter 1: The Genesis of Fourier Analysis}
+\subsection{Exercises}
+
+\subsubsection{Exercise 1.1}
+\begin{tcolorbox}
+  If $z = x + iy$ is a complex number with $x, y \in \R$,
+  we define
+  \[|z| = (x^2 + y^2)^{1 / 2}\]
+  and call this quantity the \textbf{modulus}
+  or \textbf{absolute value} of $z$.
+  \begin{enumerate}
+    \item What is the geometric interpretation
+      of $|z|$?
+    \item Show that if $|z| = 0$, then $z = 0$.
+    \item Show that if $\lambda \in \R$, then
+      $|\lambda z| = |\lambda| |z|$, where $|\lambda|$
+      denotes the standard absolute value of a real
+      number.
+    \item If $z_1$ and $z_2$ are two complex numbers,
+      prove that
+      \[
+        |z_1 z_2| = |z_1| |z_2|
+        \quad \text{and} \quad
+        |z_1 + z_2| \le |z_1| + |z_2|.
+      \]
+    \item Show that if $z \ne 0$, then
+      $|1 / z| = 1 / |z|$.
+  \end{enumerate}
+\end{tcolorbox}
+
+\begin{proof}
+  (a) The geometric interpretation of $|z|$ is the
+  distance from $z$ as a vector in $\R^2$ to the origin.
+
+  (b) If $|z| = 0$, then
+  $|z|^2 = x^2 + y^2 = 0$.
+  But $x^2, y^2 \ge 0$ since $x, y \in \R$, so
+  $x^2 = y^2 = 0$. Thus $x = y = 0$.
+
+  (c) If $\lambda \in \R$, then
+  $\sqrt{\lambda^2} = |\lambda|$ and thus
+  \[
+    |\lambda z|
+    = |\lambda x + i \lambda y|
+    = \sqrt{(\lambda x)^2 + (\lambda y)^2}
+    = \sqrt{\lambda^2 (x^2 + y^2)}
+    = |\lambda| \sqrt{x^2 + y^2}
+    = |\lambda| |z|.
+  \]
+
+  (d) Let $z_1 = x_1 + i y_1$ and $z_2 = x_2 + i y_2$.
+  Then
+  $z_1 z_2 = (x_1 x_2 - y_1 y_2) + i (x_1 y_2 + x_2 y_1)$
+  and
+  \[
+    |z_1 z_2|
+    = \sqrt{(x_1 x_2 - y_1 y_2)^2 + (x_1 y_2 + x_2 y_1)^2}
+    = \sqrt{x_1^2 x_2^2 + y_1^2 y_2^2 + x_1^2 y_2^2 + x_2^2 y_1^2}
+    = \sqrt{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}
+    = |z_1| |z_2|,
+  \]
+  where the mixed $x_1x_2y_1y_2$ terms cancel out.
+  For the triangle inequality, we have
+  \[
+    |z_1 + z_2|^2
+    = (x_1 + x_2)^2 + (y_1 + y_2)^2
+    = x_1^2 + y_1^2 + x_2^2 + y_2^2 + 2(x_1 x_2 + y_1 y_2)
+    = |z_1|^2 + |z_2|^2 + 2(x_1x_2 + y_1y_2)
+  \]
+  Now note that
+  $x_1x_2 + y_1y_2 \le \sqrt{x_1^2 + y_1^2} \sqrt{x_2^2 + y_2^2} = |z_1| |z_2|$
+  by the Cauchy-Schwarz inequality on $\R^2$, so
+  \[
+    |z_1 + z_2|^2
+    \le |z_1|^2 + |z_2|^2 + 2|z_1| |z_2|
+    = (|z_1| + |z_2|)^2.
+  \]
+  Taking square roots gives the desired result
+  since the square root is monotonically increasing.
+
+  (e) If $z \ne 0$, then $1 = (1 / z) z$ and thus
+  \[
+    1 = \left| \frac{1}{z} z \right|
+    = \left| \frac{1}{z} \right| |z|
+    \implies \left| \frac{1}{z} \right| = \frac{1}{|z|}
+  \]
+  by (c). This is valid since $|z| \ne 0$ by (b).
+\end{proof}
+
+\subsubsection{Exercise 1.2}
+\begin{tcolorbox}
+  If $z = x + iy$ is a complex number with $x, y \in \R$,
+  we define the \textbf{complex conjugate} of $z$ by
+  \[\overline{z} = x - iy.\]
+  \begin{enumerate}
+    \item What is the geometric interpretation
+      of $\overline{z}$?
+    \item Show that $|z|^2 = z \overline{z}$.
+    \item Prove that if $z$ belongs to the unit circle,
+      then $1 / z = \overline{z}$.
+  \end{enumerate}
+\end{tcolorbox}
+
+\begin{proof}
+  (a) The geometric interpretation of $\overline{z}$
+  is a reflection of $z$ across the real axis.
+
+  (b) We have
+  $z \overline{z} = (x + iy)(x - iy) = x^2 - i^2 y^2
+  = x^2 + y^2 = |z|^2$ since $i^2 = -1$.
+
+  (c) If $z$ belongs to the unit circle, then
+  $|z| = 1$. Then by (b),
+  $1 = |z|^2 = z \overline{z}$, so
+  $1 / z = \overline{z}$ since $z \ne 0$.
+\end{proof}
+
+\pagebreak
+\section{Chapter 2: Basic Properties of Fourier Series}
+\subsection{Exercises}
+\subsubsection{Exercise 2.1}
+\begin{tcolorbox}
+  Suppose $f$ is $2\pi$-periodic and integrable on
+  any finite interval. Prove that if $a, b \in \R$,
+  then
+  \[\int_a^b f(x)\, dx = \int_{a + 2\pi}^{b + 2\pi} f(x)\, dx = \int_{a - 2\pi}^{b - 2\pi} f(x)\, dx.\]
+  Also prove that
+  \[
+    \int_{-\pi}^{\pi} f(x + a)\, dx
+    = \int_{-\pi}^{\pi} f(x)\, dx
+    = \int_{-\pi + a}^{\pi + a} f(x)\, dx.
+  \]
+\end{tcolorbox}
+
+\begin{proof}
+  For the first chain of equalities, make the
+  change of variables $u = x + 2\pi$ with $du = dx$ to get
+  \[
+    \int_a^b f(x)\, dx = \int_{a + 2\pi}^{b + 2\pi} f(x - 2\pi)\, dx
+    = \int_{a + 2\pi}^{b + 2\pi} f(x)\, dx
+  \]
+  since $f(x - 2\pi) = f(x)$ by periodicity (taking
+  $y = x - 2\pi$ in $f(y + 2\pi) = f(y)$ yields this
+  version).
+  The second equality in the chain follows from
+  using $u = x - 2\pi$. For the latter chain of
+  equalities, first observe that the first and last
+  integrals are equal by the change of variables
+  $u = x + a$ with $du = dx$:
+  \[
+    \int_{-\pi}^{\pi} f(x + a)\, dx
+    = \int_{-\pi + a}^{\pi + a} f(u)\, du.
+  \]
+  Now we show that the middle integral is equal to
+  the last. Assume without loss of generality that
+  $0 \le a \le 2\pi$ since $f$ is $2\pi$-periodic.
+  Then we can write
+  \[
+    \int_{-\pi}^{\pi} f(x)\, dx
+    = \int_{-\pi}^{-\pi + a} f(x)\, dx + \int_{-\pi + a}^{\pi} f(x)\, dx
+  \]
+  since $-\pi \le -\pi + a \le \pi$. Then apply
+  the first inequality in the first chain to the
+  first integral to get
+  \[
+    \int_{-\pi}^{\pi} f(x)\, dx
+    = \int_{\pi}^{\pi + a} f(x)\, dx
+    + \int_{-\pi + a}^{\pi} f(x)\, dx
+    = \int_{-\pi + a}^{\pi + a} f(x)\, dx,
+  \]
+  as desired.
+\end{proof}
+
+\subsubsection{Exercise 2.2}
+\begin{tcolorbox}
+  In this exercise we show how the symmetries of
+  a function imply certain properties of its Fourier
+  coefficients. Let $f$ be a $2\pi$-periodic Riemann
+  integrable function defined on $\R$.
+  \begin{enumerate}
+    \item Show that the Fourier series of the function
+      $f$ can be written as
+      \[
+        f(\theta) \sim \hat{f}(0)
+        + \sum_{n \ge 1} \left([\hat{f}(n) + \hat{f}(-n)] \cos n\theta + i [\hat{f}(n) - \hat{f}(-n)] \sin n\theta\right).
+      \]
+    \item Prove that if $f$ is even, then
+      $\hat{f}(n) = \hat{f}(-n)$, and we get a cosine
+      series.
+    \item Prove that if $f$ is odd, then
+      $\hat{f}(n) = -\hat{f}(-n)$, and we get a sine
+      series.
+    \item Suppose that $f(\theta + \pi) = f(\theta)$
+      for all $\theta \in \R$. Show that
+      $\hat{f}(n) = 0$ for all odd $n$.
+    \item Show that $f$ is real-valued if and only if
+      $\overline{\hat{f}(n)} = \hat{f}(-n)$ for all
+      $n$.
+  \end{enumerate}
+\end{tcolorbox}
+
+\begin{proof}
+  (a) From the usual representation of the Fourier
+  series of $f$, we have
+  \[
+    f(\theta) \sim \sum_{n = -\infty}^\infty \hat{f}(n) e^{in\theta}
+    = \hat{f}(0) + \sum_{n = 1}^{\infty} \hat{f}(n) e^{in\theta} + \sum_{n = -\infty}^{1} \hat{f}(n) e^{in\theta}
+    = \hat{f}(0) + \sum_{n = 1}^{\infty} \left(\hat{f}(n) e^{in\theta} + \hat{f}(-n) e^{-in\theta}\right).
+  \]
+  Writing $e^{in\theta} = \cos n\theta + i \sin n\theta$
+  and $e^{-in\theta} = \cos n\theta - i \sin n\theta$,
+  we obtain
+  \[
+    f(\theta) \sim \hat{f}(0)
+    + \sum_{n = 1}^{\infty} \left([\hat{f}(n) + \hat{f}(-n)] \cos n\theta + i [\hat{f}(n) - \hat{f}(-n)] \sin n\theta\right)
+  \]
+  by grouping the real and imaginary parts.
+
+  (b) If $f$ is even, then $f(\theta) = f(-\theta)$ and
+  thus
+  \[
+    \hat{f}(-n) = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(\theta) e^{in\theta}\, d\theta
+    = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(-\theta) e^{-in\theta}\, d\theta
+    = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(\theta) e^{-in\theta}\, d\theta
+    = \hat{f}(n)
+  \]
+  after making the change of variables
+  $\theta \mapsto -\theta$ (note that we pick up a minus
+  sign from the Jacobian but the bounds get reversed,
+  so the two effects are canceled out). As a result,
+  we have $\hat{f}(n) - \hat{f}(-n) = 0$ and the
+  sine terms in the series vanish, so we are
+  left with a cosine series.
+
+  (c) If $f$ is odd, then $f(\theta) = -f(-\theta)$ and
+  everything is the same as in (b) except we pick up
+  an extra minus sign in the third equality, so
+  we end up with $\hat{f}(-n) = -\hat{f}(n)$. As a result,
+  we have $\hat{f}(n) + \hat{f}(-n) = 0$ and the
+  cosine terms vanish instead, so we are
+  left with a sine series.
+
+  (d) Let $n$ be odd and look at
+  \[
+    \hat{f}(n)
+    = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(\theta) e^{-in\theta}\, d\theta
+    = \frac{1}{2\pi} \int_{-\pi}^{0} f(\theta) e^{-in\theta}\, d\theta
+    + \frac{1}{2\pi} \int_{0}^{\pi} f(\theta) e^{-in\theta}\, d\theta.
+  \]
+  In the first integral, make the change of
+  variables $\theta \mapsto \theta - \pi$ to get
+  \[
+    \frac{1}{2\pi} \int_{-\pi}^{0} f(\theta) e^{-in\theta}\, d\theta
+    = \frac{1}{2\pi} \int_{0}^{\pi} f(\theta - \pi) e^{-in(\theta - \pi)}\, d\theta
+    = \frac{e^{\pi i n}}{2\pi} \int_{0}^{\pi} f(\theta) e^{-in\theta}\, d\theta
+    = -\frac{1}{2\pi} \int_{0}^{\pi} f(\theta) e^{-in\theta}\, d\theta
+  \]
+  since $f(\theta - \pi) = f(\theta)$ by periodicity
+  and $e^{\pi i n} = (-1)^n = -1$ for odd $n$.
+  Substituting this back in yields
+  \[
+    \hat{f}(n)
+    = -\frac{1}{2\pi} \int_{0}^{\pi} f(\theta) e^{-in\theta}\, d\theta.
+    + \frac{1}{2\pi} \int_{0}^{\pi} f(\theta) e^{-in\theta}\, d\theta = 0,
+  \]
+  as desired.
+
+  (e) $(\Longrightarrow)$ If $f$ is real-valued, then
+  (we integrate over
+  $[-\pi, \pi] \subseteq \R$, so
+  the complex conjugate passes through)
+  \[
+    \hat{f}(-n)
+    = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(\theta) e^{in\theta}\, d\theta
+    = \frac{1}{2\pi} \int_{-\pi}^{\pi} \overline{f(\theta)} e^{in\theta}\, d\theta
+    = \frac{1}{2\pi} \int_{-\pi}^{\pi} \overline{f(\theta) e^{-in\theta}}\, d\theta
+    = \overline{\frac{1}{2\pi} \int_{-\pi}^{\pi} f(\theta) e^{-in\theta}\, d\theta}
+    = \overline{\hat{f}(n)}
+  \]
+  since $f(\theta) = \overline{f(\theta)}$ if and only if
+  $f(\theta) \in \R$.
+
+  (e) ($\Longleftarrow$) Now assume that
+  $\overline{\hat{f}(n)} = \hat{f}(-n)$ for all $n$.
+  By the second equality of the
+  previous calculation this implies that
+  \[
+    \int_{-\pi}^{\pi} f(\theta) e^{in\theta}\, d\theta
+    = \int_{-\pi}^{\pi} \overline{f(\theta)} e^{in\theta}\, d\theta
+    \implies \int_{-\pi}^{\pi} (f(\theta) - \overline{f(\theta)}) e^{in\theta}\, d\theta = 0
+  \]
+  for every $n$. Letting $g(\theta) = f(\theta) - \overline{f(\theta)}$,
+  we can rewrite this as $\hat{g}(n) = 0$ for all $n$.
+  From here we can conclude
+  \[0 = g(\xi) = f(\xi) - \overline{f(\xi)}\]
+  whenever $g$ (and thus $f$) is continuous at $\xi$.
+  Since $f$ is Riemann integrable, it is continuous
+  almost everywhere, so $f \equiv \overline{f}$
+  almost everywhere
+  and thus $f$ is real-valued almost everywhere.
+\end{proof}
+
+\subsubsection{Exercise 2.10}
+\begin{tcolorbox}
+  Suppose $f$ is a periodic function of period $2\pi$
+  which belongs to the class $C^k$. Show that
+  \[\hat{f}(n) = O(1 / |n|^k) \quad \text{as } |n| \to \infty.\]
+  This notation means that there exists a constant
+  $C$ such that $|\hat{f}(n)| \le C / |n|^k$. We could
+  also write this as $|n|^k \hat{f}(n) = O(1)$, where
+  $O(1)$ means bounded.
+
+  [Hint: Integrate by parts.]
+\end{tcolorbox}
+
+\begin{proof}
+  We proceed by induction on $k$. When $k = 0$, note that
+  $f$ is continuous on a compact set and thus uniformly
+  continuous, so $f$ is Riemann integrable. Then
+  (noting that $|e^{in\theta}| = 1$)
+  \[
+    |\hat{f}(n)|
+    = \left|\frac{1}{2\pi} \int_{-\pi}^{\pi} f(\theta) e^{-in\theta}\, d\theta \right|
+    \le \frac{1}{2\pi} \int_{-\pi}^{\pi} |f(\theta)|\, d\theta
+    \le \frac{1}{2\pi} 2\pi \max_{-\pi \le \theta \le \pi} |f(\theta)|
+    = \max_{-\pi \le \theta \le \pi} |f(\theta)|,
+  \]
+  where we know that the maximum exists since $f$ is
+  continuous on a compact set. Thus $\hat{f}$ is bounded,
+  i.e. $\hat{f}(n) = O(1)$. Now assume for induction
+  that the result
+  holds for some fixed $k \in \N$, i.e.
+  that $\hat{g}(n) = O(1 / |n|^k)$ for any $2\pi$-periodic
+  function $g \in C^k$, and we show that
+  it remains true for any $2\pi$-periodic function
+  $f \in C^{k + 1}$. Note that $k + 1 \ge 1$ for
+  $k \in \N$, so that
+  $f$ is at least once continuously differentiable.
+  Thus we can integrate by parts
+  (differentiating $f$ and integrating $e^{-in\theta}$)
+  to see that
+  \[
+    \hat{f}(n)
+    = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(\theta) e^{-in\theta}\, d\theta
+    = \frac{1}{2\pi} \left[f(\theta) \frac{e^{-in\theta}}{-in}\right]_{-\pi}^{\pi}
+    + \frac{1}{2\pi in} \int_{-\pi}^{\pi} f'(\theta) e^{-in\theta}\, d\theta
+    = \frac{1}{in} \widehat{f'}(n),
+  \]
+  where the first term vanishes since
+  $f$ and $e^{-in\theta}$ are both $2\pi$-periodic.
+  Now since $f$ is $2\pi$-periodic and $(k + 1)$-times
+  continuously differentiable, $f'$ is also
+  $2\pi$-periodic but only $k$-times continuously
+  differentiable. So we can apply the induction
+  hypothesis to conclude that
+  $\widehat{f'}(n) = O(1 / |n|^k)$. From here it follows
+  that
+  \[
+    |\hat{f}(n)|
+    = \left|\frac{1}{in} \widehat{f'}(n)\right|
+    = \frac{1}{|n|} \left|\widehat{f'}(n)\right|
+    \le \frac{1}{|n|} \frac{C}{|n|^{k}}
+    = \frac{C}{|n|^{k + 1}},
+  \]
+  for some constant $C$ since
+  $\widehat{f'}(n) = O(1 / |n|^k)$. Thus
+  $\hat{f}(n) = O(1 / |n|^{k + 1})$,
+  and we finish by induction.
+\end{proof}
+
+\end{document}

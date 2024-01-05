@@ -416,4 +416,80 @@
   and we finish by induction.
 \end{proof}
 
+\pagebreak
+\section{Chapter 3: Convergence of Fourier Series}
+\subsection{Exercises}
+
+\subsubsection{Exercise 3.1}
+\begin{tcolorbox}
+  Show that the first two examples of inner product
+  spaces, namely $\R^d$ and $\C^d$, are complete.
+
+  [Hint: Every Cauchy sequence in $\R$ has a limit.]
+\end{tcolorbox}
+
+\begin{proof}
+  Recall that any norm $\|{\cdot}\|$ on a vector space
+  $V$ induces a metric $d$ on $V$ by
+  $d(x, y) = \|x - y\|$. So it suffices to show the
+  result for $\R^m$ and $\C^m$ as metric spaces
+  with the induced metrics.
+  We first show that for any complete metric space
+  $(X, d)$, the set $X^m$ is also complete with
+  respect to the metric
+  \[
+    d_m(y, z) = \left(\sum_{i = 1}^m d(y^{(i)}, z^{(i)})^2\right)^{1 / 2},
+  \]
+  where $y^{(i)}$ denotes the $i$th component of $x$.
+  To see this, take a Cauchy sequence
+  $\{x_n\} \subseteq X^m$ and we show that
+  $x_n \to x$ for some $x \in X^m$.
+  Since $\{x_n\}$ is Cauchy, for any $\epsilon > 0$
+  we can find $N \in \N$ such that
+  $d_m(x_n, x_k) < \epsilon$ for all $n, k \ge N$.
+  From here first note that the sequence
+  $\{x^{(i)}_n\} \subseteq X$ at a fixed position $i$
+  is also Cauchy since
+  \[
+  d(x^{(i)}_n - x^{(i)}_k)
+  \le d_m(x_n - x_k) < \epsilon
+  \]
+  for any $n, k \ge N$. This observation follows from
+  noting that
+  \[
+    d_m(y, z) = \left(\sum_{i = 1}^m d(y^{(i)}, z^{(i)})^2\right)^{1 / 2}
+    \ge \left((d(y^{(i)}, z^{(i)}))^2\right)^{1 / 2}
+    = d(y^{(j)}, z^{(j)})
+  \]
+  for any fixed $j$ since each
+  $d(y^{(i)}, z^{(i)}) \ge 0$.
+  Then since $X$
+  is complete, at each position $i$ we have
+  $x^{(i)}_n \to x^{(i)}$ for some $x^{(i)} \in X$.
+  So we can find $N_i \in \N$ such that for
+  any $n \ge N_i$, we have
+  $d(x^{(i)}_n, x^{(i)}) < \epsilon / \sqrt{m}$.
+  Now we define $x = (x^{(1)}, \ldots, x^{(m)}) \in X^m$
+  as the limit for the given $\{x_n\}$, and
+  for any $n \ge \max\{N_1, \ldots, N_m\}$ we have
+  \[
+    d_m(x_n, x)
+    = \left(\sum_{i = 1}^m d(x^{(i)}_n, x^{(i)})^2\right)^{1 / 2}
+    < \left(\sum_{i = 1}^m \left(\frac{\epsilon}{\sqrt{m}}\right)^2\right)^{1 / 2}
+    = \left(\sum_{i = 1}^m \frac{\epsilon^2}{m}\right)^{1 / 2}
+    = (\epsilon^2)^{1 / 2}
+    = \epsilon,
+  \]
+  so $x_n \to x$ as desired. Thus $X^m$ is complete
+  with respect to the metric $d_m$.
+
+  Now to finish, first note that $\R$ is complete
+  since every Cauchy sequence in $\R$ converges,
+  and thus $\R^d$ is complete for any fixed $d$ by the
+  above. As for $\C^d$, we can identify $\C$ with
+  $\R^2$, which is complete by the previous statement.
+  So $\C$ is complete and thus $\C^d$ is complete
+  by the same argument using the above result.
+\end{proof}
+
 \end{document}
